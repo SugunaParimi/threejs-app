@@ -1,22 +1,22 @@
 // Import all of the necessary dependencies
 import * as THREE from "three";
 import orbit from "three-orbit-controls";
-let orbitControls=orbit(THREE);
+let orbitControls = orbit(THREE);
 
 function getRandomColor() {
-    let colors = [
-      "dodgerblue",
-      "tomato",
-      "limegreen",
-      "rebeccapurple",
-      "gold",
-      "lavender",
-      "lightcoral",
-      "papayawhip",
-    ];
-    let randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex];
-  }
+  let colors = [
+    "dodgerblue",
+    "tomato",
+    "limegreen",
+    "rebeccapurple",
+    "gold",
+    "lavender",
+    "lightcoral",
+    "papayawhip",
+  ];
+  let randomIndex = Math.floor(Math.random() * colors.length);
+  return colors[randomIndex];
+}
 function createRenderer() {
   let renderer = new THREE.WebGLRenderer({
     antialias: true,
@@ -38,7 +38,7 @@ function createCamera() {
     45, // Field of View
     window.innerWidth / window.innerHeight, // Ratio
     0.1, // Near (Macro)
-    1000, // Far
+    1000 // Far
   );
   camera.position.set(-30, 40, 30); // X, Y, Z
   camera.lookAt(0, 0, 0);
@@ -62,9 +62,9 @@ function createSphere() {
   let mesh = new THREE.Mesh(geo, mat);
   return mesh;
 }
-function createLight(){
-    let light=new THREE.PointLight("white");
-    return light;
+function createLight() {
+  let light = new THREE.PointLight("white");
+  return light;
 }
 let renderer = createRenderer();
 let scene = createScene();
@@ -72,39 +72,39 @@ let camera = createCamera();
 let cube = createCube();
 let sphere = createSphere();
 //let axesHelper = new THREE.AxesHelper( 50 );
-let light=createLight();
+let light = createLight();
 new orbitControls(camera);
 sphere.position.x = 10;
-light.position.x=5;
-light.position.y=10;
-light.position.z=10;
+light.position.x = 5;
+light.position.y = 10;
+light.position.z = 10;
 scene.add(cube, sphere, light);
-let cubes=[];
-let cubeCount=500;
-for (let i=1;i<=cubeCount;i+=1){
-    let newCube= createCube();
-    newCube.position.x=Math.random()*500-250;
-    newCube.position.y=Math.random()*500-250;
-    newCube.position.z=Math.random()*500-250;
-    cubes.push(newCube);
+let cubes = [];
+let cubeCount = 700;
+for (let i = 1; i <= cubeCount; i += 1) {
+  let newCube = createCube();
+  newCube.position.x = Math.random() * 500 - 250;
+  newCube.position.y = Math.random() * 500 - 250;
+  newCube.position.z = Math.random() * 500 - 250;
+  cubes.push(newCube);
 }
 scene.add(...cubes);
 
 renderer.render(scene, camera);
 
-   //cube.position.x+=0.1;
-   function animate() {
-    cube.rotation.x += 0.05;
-    cube.rotation.y += 0.05;
-    cube.rotation.z += 0.05;
-  
-    cubes.forEach(function (c) {
-      c.rotation.x += 0.01;
-      c.rotation.y += Math.random()/10;
-      c.rotation.z += Math.random()/10;
-    });
+//cube.position.x+=0.1;
+function animate() {
+  cube.rotation.x += 0.05;
+  cube.rotation.y += 0.05;
+  cube.rotation.z += 0.05;
+
+  cubes.forEach(function (c) {
+    c.rotation.x += 0.01;
+    c.rotation.y += Math.random() / 10;
+    c.rotation.z += Math.random() / 10;
+  });
   //Math.random()/10;
-   renderer.render(scene, camera);
-    requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+  requestAnimationFrame(animate);
 }
 animate();
